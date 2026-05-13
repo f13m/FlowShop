@@ -1,73 +1,74 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../providers/shop_provider.dart';
+import '../providers/ShopProvider.dart';
+import '../models/product.dart'; // تأكد من استيراد المودل
 
 class ProductDetailsScreen extends StatelessWidget {
-  final String productId;
+  final int productId;
 
-  // نستقبل المعرف عبر الـ Constructor
   const ProductDetailsScreen({super.key, required this.productId});
 
   @override
   Widget build(BuildContext context) {
-    // البحث عن المنتج المطابق للمعرف في الـ Provider
-    // نستخدم listen: false لأننا نحتاج البيانات مرة واحدة عند بناء الشاشة
-    final loadedProduct = Provider.of<ShopProvider>(context, listen: false)
-        .items
-        .firstWhere((prod) => prod.id == productId);
+    // 1. استخدام دالة البحث الآمنة التي أضفناها في الـ Provider
+    final shopProvider = Provider.of<ShopProvider>(context, listen: false);
+    final loadedProduct = shopProvider.findById(productId);
+
+    // 2. التحقق من سلامة البيانات قبل البدء برسم الواجهة (مهم جداً لمنع التجمد)
+    if (loadedProduct.id == 0) {
+      return Scaffold(
+        appBar: AppBar(title: const Text('جاري التحميل...')),
+        body: const Center(child: CircularProgressIndicator()),
+      );
+    }
 
     return Scaffold(
       appBar: AppBar(
         title: Text(loadedProduct.title),
       ),
-      body: SingleChildScrollView( // للسماح بالتمرير إذا كان الوصف طويلاً
+      body: SingleChildScrollView(
         child: Column(
           children: [
-            // عرض صورة المنتج بشكل كبير
             SizedBox(
               height: 300,
               width: double.infinity,
               child: Image.network(
                 loadedProduct.imageUrl,
-                fit: BoxFit.cover,
+                fit: BoxFit.contain, // استخدم contain لعدم قص تفاصيل المنتج كما في الصور السابقة
+                errorBuilder: (ctx, error, stack) => const Icon(Icons.broken_image, size: 100),
               ),
             ),
             const SizedBox(height: 10),
-            // عرض السعر
             Text(
               '\$${loadedProduct.price}',
-              style: const TextStyle(
-                color: Colors.grey,
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
-              ),
+              style: const TextStyle(color: Colors.grey, fontSize: 22, fontWeight: FontWeight.bold),
             ),
-            const SizedBox(height: 10),
-            // عرض الوصف
-            Container(
-              padding: const EdgeInsets.symmetric(horizontal: 10),
-              width: double.infinity,
+            const SizedBox(height: 15),
+            Padding(
+              padding: const EdgeInsets.all(15.0),
               child: Text(
                 loadedProduct.description,
-                textAlign: TextAlign.center,
-                softWrap: true,
-                style: const TextStyle(fontSize: 16),
+                textAlign: TextAlign.justify, // تنسيق أفضل للنصوص الطويلة
+                style: const TextStyle(fontSize: 16, height: 1.5),
               ),
             ),
           ],
         ),
       ),
-      // داخل الـ Scaffold في ملف product_details_screen.dart
-floatingActionButton: FloatingActionButton.extended(
-  onPressed: () {
-    Provider.of<ShopProvider>(context, listen: false).addToCart(loadedProduct);
-    ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(content: Text('تمت الإضافة للسلة!'), duration: Duration(seconds: 1)),
-    );
-  },
-  label: const Text('إضافة للسلة'),
-  icon: const Icon(Icons.add_shopping_cart),
-),
+      floatingActionButton: FloatingActionButton.extended(
+        onPressed: () {
+          shopProvider.addToCart(loadedProduct);
+          ScaffoldMessenger.of(context).hideCurrentSnackBar(); // لإخفاء أي سناك بار سابق فوراً
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text('تم إضافة ${loadedProduct.title} للسلة!'),
+              duration: const Duration(seconds: 1),
+            ),
+          );
+        },
+        label: const Text('إضافة للسلة'),
+        icon: const Icon(Icons.add_shopping_cart),
+      ),
     );
   }
 }
