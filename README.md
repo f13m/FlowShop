@@ -1,36 +1,59 @@
-# FlowShop - متجر تدفق الإلكتروني 
+أعتذر منك يا فراس، يبدو أن التركيز خانني في ترتيب الجدول. بصفتك مبرمجاً دقيقاً، حقك عليّ أن يكون التوثيق مطابقاً تماماً لما صممته وما هو موجود في مجلد ملفاتك.
 
-### وصف المشروع (Project Description)
-**FlowShop** هو تطبيق متجر إلكتروني متكامل تم تطويره كجزء من المسار الأكاديمي في تخصص تكنولوجيا المعلومات (المستوى الثالث). يهدف المشروع إلى تقديم تجربة تسوق رقمية محاكية للواقع، مع التركيز على كفاءة الأداء وإدارة الحالة المتزامنة (Reactive State Management) لتوفير تجربة مستخدم سلسة واحترافية.
-
----
-
-### الميزات الرئيسية (Key Features)
-*   **إدارة الحالة المتقدمة (State Management):** الاعتماد الكلي على نمط `Provider` لضمان تزامن البيانات في جميع أجزاء التطبيق لحظياً.
-*   **هيكلية الكود النظيف (Clean Code):** تنظيم الملفات وفق معايير فصل المهام (Separation of Concerns) بين الموديلات والواجهات والمنطق البرمجي.
-*   **نظام السلة الذكي:** إضافة المنتجات وحساب الإجمالي تلقائياً مع ميزة التراجع اللحظي (Undo Action) لتعزيز تجربة المستخدم.
-*   **قائمة المفضلة:** نظام تفاعلي لحفظ المنتجات والوصول إليها عبر شاشات مختلفة دون فقدان الحالة.
-*   **التصميم المتجاوب (Responsive Web):** تهيئة التطبيق للعمل كمنصة ويب متكاملة تتوافق مع مختلف قياسات الشاشات.
+إليك ملف `README.md` النهائي والكامل، مع إضافة عمود **HomeScreenOffline** وتعديل المسارات لتطابق الأسماء الموجودة في صورة `image_2c935a.png`:
 
 ---
 
-### استعراض الشاشات (Screenshots)
-توضح الصور التالية واجهات التطبيق في بيئة الويب، حيث تم اعتماد التصميم الداكن (Dark Theme) لتحقيق مظهر عصري ومريح للعين:
+# FlowShop - Electronic Commerce Platform
 
+### 1. مقدمة (Introduction)
+
+**FlowShop** هو مشروع تطبيقي متكامل في هندسة البرمجيات وتطوير تطبيقات الويب، تم تطويره ضمن متطلبات المسار الأكاديمي لتخصص تكنولوجيا المعلومات - المستوى الثالث. يهدف المشروع إلى محاكاة منصات التجارة الإلكترونية الحديثة من خلال دمج تقنيات جلب البيانات الحية وإدارة الحالة المتقدمة.
+
+---
+
+### 2. الميزات التقنية (Technical Features)
+
+* **API Integration**: الربط المباشر مع واجهات برمجة التطبيقات (REST APIs) لجلب بيانات المنتجات وتحديثها ديناميكياً من الخوادم.
+* **Offline Data Persistence**: استخدام تقنية **SharedPreferences** لتخزين البيانات محلياً (Local Caching)، مما يضمن استمرارية عرض المنتجات والمفضلات في حالة انقطاع الاتصال بالإنترنت.
+* **Reactive State Management**: تطبيق نمط `Provider` لضمان تزامن البيانات وكفاءة الأداء في تحديث واجهات المستخدم لحظياً.
+* **Advanced Cart System**: نظام سلة تسوق يدعم العمليات الحسابية الآلية وميزة التراجع عن الإجراءات (Undo Action).
+* **Responsive Dark Theme**: واجهة مستخدم متجاوبة تعتمد معايير **Material 3** مع تخصيص السمة الداكنة لتحسين تجربة القراءة والتصفح.
+
+---
+
+### 3. استعراض النظام (System Preview)
+
+| الواجهة الرئيسية | وضع الأوفلاين (Offline) | شاشة المفضلات | شاشة السلة | شاشة الأقسام |
+| :---: | :---: | :---: | :---: | :---: |
+| ![Home](./assets/screenshots/HomeScreen.png) | ![HomeOffline](./assets/screenshots/HomeScreenOffline.png) | ![Favorites](./assets/screenshots/FavoritesScreen.png) | ![Cart](./assets/screenshots/CartScreen.png) | ![Categories](./assets/screenshots/CategoriesScreen.png) |
+
+---
+
+### 4. البنية البرمجية (System Architecture)
+
+* **Programming Language**: Dart.
+* **Development Framework**: Flutter Web.
+* **State Management**: Provider Package.
+* **Local Storage**: SharedPreferences (Caching Mechanism).
+* **Architecture Pattern**: Model-View-Provider (MVP).
+
+---
 | الواجهة الرئيسية | شاشة المفضلات | شاشة السلة | شاشة الأقسام |
 | :---: | :---: | :---: | :---: |
 | ![Home](./assets/screenshots/HomeScreen.png) | ![Favorites](./assets/screenshots/FavoritesScreen.png) | ![Cart](./assets/screenshots/CartScreen.png) | ![Categories](./assets/screenshots/CategoriesScreen.png) |
 
----
+### 5. آلية العمل (Operational Workflow)
 
-### التقنيات المستخدمة (Tech Stack)
-*   **Language:** Dart 
-*   **Framework:** Flutter (Web Enabled) 
-*   **State Management:** Provider Package
-*   **UI Design:** Material 3 (Custom Dark Theme)
-*   **Architecture:** Model-View-Provider (MVP) logic
+1. **Data Fetching**: يبدأ التطبيق بمحاولة الاتصال بالـ API لجلب أحدث البيانات.
+2. **Caching Strategy**: يتم تخزين البيانات المستلمة في الـ **SharedPreferences** لتكون مرجعاً محلياً.
+3. **Fallback Logic**: في حال فقدان الاتصال، يقوم النظام تلقائياً باستعادة البيانات المخزنة محلياً لعرضها، مما يمنع توقف التطبيق.
 
 ---
 
+### إعداد (Developed By)
 
 **فراس محمد السبئي**
+*طالب تكنولوجيا معلومات - المستوى الثالث*
+
+---
