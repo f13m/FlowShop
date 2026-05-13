@@ -33,9 +33,6 @@
 * **Architecture Pattern**: Model-View-Provider (MVP).
 
 ---
-| الواجهة الرئيسية | شاشة المفضلات | شاشة السلة | شاشة الأقسام |
-| :---: | :---: | :---: | :---: |
-| ![Home](./assets/screenshots/HomeScreen.png) | ![Favorites](./assets/screenshots/FavoritesScreen.png) | ![Cart](./assets/screenshots/CartScreen.png) | ![Categories](./assets/screenshots/CategoriesScreen.png) |
 
 ### 5. آلية العمل (Operational Workflow)
 
